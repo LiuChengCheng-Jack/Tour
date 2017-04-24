@@ -19,9 +19,46 @@
 	     	font-size: 8px;
 	     	fill: blue;
 	     }
+	     .menu{
+	     	position: fixed;
+	     	height: 30px;
+	     	background-color: rgba(234,234,234,0.8);
+	     	width: 100%;
+	     	z-index: 60;
+	     }
+	     .menu ul{
+                        list-style: none;
+                        margin-left: 10%;
+                        margin-top: 0;
+                        height: 30px;
+                        line-height: 30px;
+	     }
+	     .menu ul li{
+	          list-style: none;
+	          float: left;
+	          width:22%;
+	          padding: 0 4%;
+	          height:30px;
+	          line-height: 30px; 
+	     }
+	     .menu ul li a{
+	     	padding: 0 20%;
+	     	text-decoration: none;
+	     	color: black;
+	     	background-color: rgba(234,234,234,0.8);
+	     	text-align: center;
+	     }
+	     .menu ul li a:hover,.menu ul li a:active{
+	     	color: yellow;
+	     	font-size: 25px;
+	     	background-color:  rgba(229,229,229,0.8);
+	     }
 	</style>
 </head>
 <body>
+  <div class="menu"><ul>
+  <li><a href="">首页</a></li><li><a href="index.html">Tour</a></li><li><a href="vis.html">Visulation</a></li>
+  </ul></div>
   <div id="map"></div>
 <script type="text/javascript">
     var mymap = L.map('map').setView([39.9, 116.3], 5);
@@ -36,19 +73,27 @@
         var m_svg = d3.select("#map").select("svg");
         var svg = m_svg.append("g");
  
-        var positionQin=[39.93,119.60];//记录经纬度
+        var posQin=[39.93,119.60];//记录经纬度
+        var posXing=[37.0755,114.50];//邢台
+        var posDaLian=[38.9227,121.616792];
+        var posBei=[39.91737,116.4002];
+        var posLiaoYang=[41.275,123.239];
+        var data=[posQin,posXing,posDaLian,posBei,posLiaoYang];
         var data1=[1];
-        var data2=['秦皇岛'];
+        var data2=['秦皇岛','邢台','大连','北京','辽阳'];
         svg.selectAll('.node')//秦皇岛
-              .data(data1)
+              .data(data)
               .enter()
               .append('circle') 
-              .attr("id","qinH")
+              .attr("id",function(d,i){
+              	i++;
+              	return 'pos'+i;
+              })
               .attr("class","node")
               .attr('fill','#ff0000')
               .attr('r',3)
-              .attr("transform", function(){
-                         var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+              .attr("transform", function(d,i){
+                         var latlon=new L.LatLng(d[0], d[1]);
                         // console.log(latlon);
                          return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
               });
@@ -63,8 +108,8 @@
              	return 'text'+i;
              })
              .attr("color","blue")
-             .attr("transform",function(){
-             	 var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+             .attr("transform",function(d,i){
+             	 var latlon=new L.LatLng(data[i][0], data[i][1]);
                         // console.log(latlon);
                          return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
              })
@@ -82,8 +127,8 @@
             mymap.on("zoomend",function(){
 
                  svg.selectAll('.MyText')
-                  .attr("transform",function(){
-             	 var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+                  .attr("transform",function(d,i){
+             	 var latlon=new L.LatLng(data[i][0], data[i][1]);
                         // console.log(latlon);
                          return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
               })
@@ -97,14 +142,20 @@
                  return d;
               });
             
-                 svg.select('#qinH')
-                .attr("transform", function(){
-                         var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+                 svg.selectAll('.node')
+                .attr("transform", function(d,i){
+                         var latlon=new L.LatLng(d[0], d[1]);
                          return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
                  });      
              });
-             $('#qinH').click(function(){
-             	$(window).attr('location','qinH.html');
+             $('#pos1').click(function(){
+             	$(window).attr('location','china-tour/qinH.html');
+             });
+              $('#pos2').click(function(){
+             	$(window).attr('location','china-tour/xingTai.html');
+             });
+               $('#pos5').click(function(){
+             	$(window).attr('location','china-tour/liaoYang.html');
              });
              $(window).unload(function(){
              	svg=null;
