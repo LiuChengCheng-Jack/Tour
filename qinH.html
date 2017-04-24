@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tour qinH</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/leaflet.js"></script>
+             <script type="text/javascript" src="js/myfocus-2.0.1.min.js"></script>
+             <script type="text/javascript" src="js/jquery.js"></script>
+             <script type="text/javascript" src="js/d3.v3.js"></script>
+             <link rel="stylesheet" type="text/css" href="css/leaflet.css">
+	<style type="text/css">
+	     #map{
+	     	height:600px;
+	     }
+	     .node{
+	     	color: blue;
+	     }
+             .MyText{
+               font-size: 8px;
+                 fill: blue;
+           }
+
+	</style>
+</head>
+<body>
+  <div id="map"></div>
+<script type="text/javascript">
+    var mymap = L.map('map').setView([39.955, 119.60], 10);
+ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',  {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18
+}).addTo(mymap);
+       // Initialize the SVG layer
+        mymap._initPathRoot();
+
+         // We pick up the SVG from the map object..........
+        var m_svg = d3.select("#map").select("svg");
+        var svg = m_svg.append("g");
+ 
+        var posQin=[39.93,119.60];//记录经纬度
+        var posBei=[39.826,119.52];//北戴河
+        var posShan=[40.001,119.7626];//山海关
+        var pos=[posQin,posBei,posShan];
+        var data1=[1,2,3];
+        var data2=['秦皇岛市','北戴河区','山海关区'];
+        svg.selectAll('.node')//秦皇岛
+              .data(data1)
+              .enter()
+              .append('circle') 
+              .attr("id",function(d,i){
+                return 'pos'+d;
+              })
+              .attr("class","node")
+              .attr('fill','#ff0000')
+              .attr('r',3)
+              .attr("transform", function(d,i){
+                         var latlon=new L.LatLng(pos[i][0], pos[i][1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+              });
+
+    var texts = svg.selectAll(".MyText")//添加文字
+             .data(data2)
+             .enter()
+             .append("text")
+             .attr("class","MyText")
+             .attr("id",function(d,i){
+              i++;
+              return 'text'+i;
+             })
+             .attr("color","blue")
+             .attr("transform",function(d,i){
+               var latlon=new L.LatLng(pos[i][0], pos[i][1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+             })
+            .attr("dx",function(){
+                 return 4;//相对x 轴的偏移
+              })
+           .attr("dy",function(d){
+                 return 4;//相对y 轴的偏移
+             })
+            .text(function(d){
+                 return d;
+              });
+
+
+             mymap.on("zoomend",function(){
+                     for(var j=0;j<data1.length;j++)
+                     {
+                             svg.select('#pos'+data1[j])
+                            .attr("transform", function(){
+                                 var latlon=new L.LatLng(pos[j][0], pos[j][1]);
+                                  return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+                           });      
+                    }
+                    svg.selectAll('.MyText')
+                    .attr("transform",function(d,i){
+                                var latlon=new L.LatLng(pos[i][0], pos[i][1]);
+                                  // console.log(latlon);
+                                  return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+                  })
+                  .attr("dx",function(){
+                      return 4;//相对x 轴的偏移
+                    })
+                  .attr("dy",function(d){
+                     return 4;//相对y 轴的偏移
+                })
+                .text(function(d){
+                         return d;
+                 });
+        });
+            for(var i=0;i<data1.length;i++)
+            {
+                $('#pos'+data1[i]).click(function(){
+                  alert("I am click");
+                });
+            }
+          $('#pos2').click(function(){
+                  $(window).attr('location','showBei.html');
+           });
+          $('#pos3').click(function(){
+                  $(window).attr('location','showShan.html');
+           });
+
+</script>
+</body>
+</html>

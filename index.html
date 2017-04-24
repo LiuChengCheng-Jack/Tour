@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tour China</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/leaflet.js"></script>
+             <script type="text/javascript" src="js/myfocus-2.0.1.min.js"></script>
+             <script type="text/javascript" src="js/jquery.js"></script>
+             <script type="text/javascript" src="js/d3.v3.js"></script>
+             <link rel="stylesheet" type="text/css" href="css/leaflet.css">
+	<style type="text/css">
+	     #map{
+	     	height:600px;
+	     }
+	     .node{
+	     	
+	     }
+	     .MyText{
+	     	font-size: 8px;
+	     	fill: blue;
+	     }
+	</style>
+</head>
+<body>
+  <div id="map"></div>
+<script type="text/javascript">
+    var mymap = L.map('map').setView([39.9, 116.3], 5);
+ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',  {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18
+}).addTo(mymap);
+       // Initialize the SVG layer
+        mymap._initPathRoot();
+
+         // We pick up the SVG from the map object..........
+        var m_svg = d3.select("#map").select("svg");
+        var svg = m_svg.append("g");
+ 
+        var positionQin=[39.93,119.60];//记录经纬度
+        var data1=[1];
+        var data2=['秦皇岛'];
+        svg.selectAll('.node')//秦皇岛
+              .data(data1)
+              .enter()
+              .append('circle') 
+              .attr("id","qinH")
+              .attr("class","node")
+              .attr('fill','#ff0000')
+              .attr('r',3)
+              .attr("transform", function(){
+                         var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+              });
+
+             var texts = svg.selectAll(".MyText")//添加文字
+             .data(data2)
+             .enter()
+             .append("text")
+             .attr("class","MyText")
+             .attr("id",function(d,i){
+             	i++;
+             	return 'text'+i;
+             })
+             .attr("color","blue")
+             .attr("transform",function(){
+             	 var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+             })
+            .attr("dx",function(){
+                 return 4;//相对x 轴的偏移
+              })
+           .attr("dy",function(d){
+                 return 4;//相对y 轴的偏移
+             })
+            .text(function(d){
+                 return d;
+              });
+
+
+            mymap.on("zoomend",function(){
+
+                 svg.selectAll('.MyText')
+                  .attr("transform",function(){
+             	 var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+              })
+              .attr("dx",function(){
+                 return 4;//相对x 轴的偏移
+              })
+              .attr("dy",function(d){
+                 return 4;//相对y 轴的偏移
+             })
+            .text(function(d){
+                 return d;
+              });
+            
+                 svg.select('#qinH')
+                .attr("transform", function(){
+                         var latlon=new L.LatLng(positionQin[0], positionQin[1]);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+                 });      
+             });
+             $('#qinH').click(function(){
+             	$(window).attr('location','qinH.html');
+             });
+             $(window).unload(function(){
+             	svg=null;
+             	mymap=null;
+             });
+</script>
+</body>
+</html>
