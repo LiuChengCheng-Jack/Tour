@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index Page</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+
+	}
+	body,html{
+		width: 100%;
+		font-family: '微软雅黑';
+	}
+		 .menu{
+		
+	     	height: 40px;
+	     	background-color: rgb(234,234,234);
+	     	width: 100%;
+	     	margin-bottom: 1px;
+	     }
+	     .front{
+	     	height:10px;
+	     }
+	     .menu ul{
+                        list-style: none;
+                        margin-left: 10%;
+                        margin-top: 0;
+                        height: 40px;
+                        line-height: 40px;
+	     }
+	     .menu img{
+	     	float: left;
+	     	margin-right: 5%;
+	     }
+	     .menu ul li{
+	          list-style: none;
+	          float: left;
+	          width:15%;
+	          padding: 0 4%;
+	          height:40px;
+	          line-height: 40px; 
+	     }
+	     .menu ul li a{
+	     	padding: 0 20%;
+	     	text-decoration: none;
+	     	color: black;
+	     	background-color: rgba(234,234,234,0.8);
+	     	text-align: center;
+	     }
+	     .menu ul li a:hover,.menu ul li a:active{
+	     	color: white;
+	     	
+	     	background-color:  rgba(229,229,229,0.2);
+	     }
+	 #boxID{
+              	width:1200px;
+              	height: 171px;
+              	border-color: rgb(234,234,234);
+              }
+              .index{
+              	background-color: rgb(234,234,234);
+              }
+              .wrap{	
+              	margin:0 auto;
+              	padding: 0;	
+             }
+             #b{
+             	color: black;
+             }
+             .main{
+             	margin-top: 1px;
+             	height:300px;
+             	width:100%;
+             	background: #FFFFDD;
+                   border-bottom: 1px solid rgb(234,234,234);
+                  border-left: 1px solid white;
+                  border-right: 1px solid white;
+             }
+             .left{
+                margin: 0 0.5% 0 0.9%;
+                 background-color: white;
+                 width: 32%;
+                 float: left;
+                 height: 300px;
+                 font-size:15px;
+                 border-left: 1px solid white;
+             }
+             .left h3,.right h3, .mid h3{
+                margin:20px 0 0 20px;
+                display: inline;
+             }
+             .mid{
+                  background-color: white;
+                  width: 32%;
+                  float: left;
+                  height: 300px;
+                 margin: 0 0.5%;
+
+             }
+             .right{  
+                   margin: 0 0.9% 0 0.5%;
+                    background-color:white;
+                    width: 32%;
+                    height: 300px;
+                    float: left;
+             }
+             .titleR{
+             	float: right;
+             	display: inline;
+             }
+            .titleR a{
+              text-decoration: none;
+            }
+            .line{
+              background-color: rgb(234,234,234);
+              height: 2px;
+              margin: 0 1% 2px;
+            }
+            .left ul li,.mid ul li,.right ul li{
+                  list-style: none;
+                  height: 30px;
+                  line-height: 30px;
+                  margin: 0 1%;
+                  border-bottom: 1px dashed rgba(234,234,234,0.8);
+
+            }
+
+            .left ul li a,.mid ul li a,.right ul li a{
+               text-decoration: none;  
+               color: grey;
+            }
+           .cc{
+             margin: 0 auto;
+          
+            }
+	</style>
+</head>
+<body>
+ <div class="front"></div>
+ <div class="menu"><img src="img/logo.png"><ul>
+  <li><a href="firstPage.html">首页</a></li><li><a href="index.html">Tour</a></li><li><a href="vis.html">Visulation</a></li></ul>
+  </div>
+  <div class="index">
+   <div id="boxID" class="wrap">
+      <div class="loading"><img src="img/loading.gif" alt="请稍候..." /></div><!--载入画面(可删除)-->
+        <div class="pic"><!--内容列表(li数目可随意增减)-->
+  	<ul> 
+                <li><a href="china-tour/beiJing.html" id="b"><img src="img/index/i12.jpg" thumb="" alt="北京-故宫" text="详细描述1" /></a></li>
+                 <li><a href="china-tour/qinH.html"><img src="img/index/i22.jpg" thumb="" alt="秦皇岛-山海关" text="详细描述2" /></a></li>
+                 <li><a href="china-tour/daLian.html" ><img src="img/index/i32.jpg" thumb="" alt="大连-旅顺港" text="详细描述3" /></a></li>
+  	</ul>
+     </div>
+   </div>
+ </div>
+ <div class="main">
+     <div class="left">
+     	<h3>Tour</h3>
+     	<p class="titleR"><a href="index.html">more>></a></p>
+      <div class="line"></div>
+       <ul>
+         <li><a href="china-tour/beiJing.html">故宫博物馆</a><p class="titleR">AAAAA级景区</p></li>
+         <li><a href="china-tour/beiJing.html">天坛公园</a><p class="titleR">AAAAA级景区</p></li>
+         <li><a href="china-tour/daLian.html">大连金石滩度景区</a><p class="titleR">AAAAA级景区</p></li>
+         <li><a href="china-tour/qinH.html">秦皇岛北戴河景区</a><p class="titleR">AAAA级景区</p></li>
+         <li><a href="china-tour/daLian.html">大连圣亚海洋世界</a><p class="titleR">AAAA级景区</p></li>
+          <li><a href="china-tour/daLian.html">旅顺白云山景区</a><p class="titleR">AAAA级景区</p></li>
+           <li><a href="china-tour/liaoYang.html">辽阳白塔公园</a><p class="titleR">AAA级景区</p></li>
+          <li><a href="china-tour/qinH.html">秦皇岛山海关景区</a><p class="titleR">原AAAAA级景区</p></li>
+       </ul>
+     </div>
+     <div class="mid">
+        <h3>Visulation</h3>
+      <p class="titleR"><a href="vis.html">more>></a></p>
+       <div class="line"></div>
+       <div class="cc">
+        <img src="img/vis1.png">
+      </div>
+        <ul>
+         <li><a href="china/leafletDemoChinaMail.html">ChinaMail</a><p class="titleR">2016 1-10月</p></li>
+         <li><a href="china/leafletDemoPopulationDesity.html">ChinaPopulationDedity</a><p class="titleR">2016 34省市</p></li>
+         </ul>
+     </div>
+     <div class="right">
+        <h3>Self</h3>
+      <p class="titleR"><a href="#">more>></a></p>
+       <div class="line"></div>
+        <div class="cc">
+        <img src="img/logo3.png">
+      </div>
+        <ul>
+         <li><a href="http://blog.csdn.net/lccla120712">CSDN Blog</a><p class="titleR">2017-04-18</p></li>
+         <li><a href="https://github.com/LiuChengCheng-Jack">My GitHub</a><p class="titleR">2017-04-26</p></li>
+        <li><a href="#">My Scores</a><p class="titleR">2017-04-26</p></li>
+        <li><a href="#">My Rewards</a><p class="titleR">2017-04-26</p></li>
+         </ul>
+     </div>
+ </div>
+ <script type="text/javascript" src="js/myfocus-2.0.1.min.js"></script>
+     <script type="text/javascript">
+             myFocus.set({
+             	id:'boxID',
+             	pattern:'mF_fancy'//风格
+             });
+</script>
+</body>
+</html>

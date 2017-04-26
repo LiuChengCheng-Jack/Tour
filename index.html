@@ -57,7 +57,7 @@
 </head>
 <body>
   <div class="menu"><ul>
-  <li><a href="">首页</a></li><li><a href="index.html">Tour</a></li><li><a href="vis.html">Visulation</a></li>
+  <li><a href="firstPage.html">首页</a></li><li><a href="index.html">Tour</a></li><li><a href="vis.html">Visulation</a></li>
   </ul></div>
   <div id="map"></div>
 <script type="text/javascript">
@@ -78,9 +78,66 @@
         var posDaLian=[38.9227,121.616792];
         var posBei=[39.91737,116.4002];
         var posLiaoYang=[41.275,123.239];
-        var data=[posQin,posXing,posDaLian,posBei,posLiaoYang];
+        var data=[posQin,posXing,posDaLian,posBei,posLiaoYang]; 
+        //邢台 石家庄 保定 天津 唐山 山海关 
+        //绥中 葫芦岛 锦州 盘锦 大石桥 熊岳城 瓦房店 普兰店 
+        //金州 大连北站 XX XX 大连 
+        var dataLine=[[114.50,37.0755],[114.492,38.017],[115.4895,38.868],[117.223,39.143],[118.123,39.63],[119.7727,40.007],
+        [120.332,40.354],[120.8738,40.76],[121.1439,41.1306],[122.069,41.2031],[122.51439,40.6523],[122.1514,40.1876],[122.0147,39.6317],[121.9658,39.4071],
+        [121.7333,39.094],[121.6140,39.0225],[121.5722,38.9638],[121.5969,38.9268],[121.6393,38.928]];//T370
+        
+        //北京 燕郊 唐山北 XXX 
+        //大石桥 -大连(与第一条线合并)
+        var dataLine2=[[116.4337,39.9098],[116.8139,39.9475],[118.1333,39.8283],[119.7727,40.007]];//k681
+        
+        //保定-北京西
+        var dataLine3=[[115.4895,38.868],[116.32784,39.9005]];
         var data1=[1];
         var data2=['秦皇岛','邢台','大连','北京','辽阳'];
+          
+         var d3Line=d3.svg.line()  
+                 .x(function (d) {
+                        var latlon=new L.LatLng(d[1], d[0]);
+                       
+                        return mymap.latLngToLayerPoint(latlon).x;
+                    })
+                 .y(function (d) {
+                          var latlon=new L.LatLng(d[1], d[0]);
+                    
+                        return mymap.latLngToLayerPoint(latlon).y;
+                     
+                })
+                .interpolate("linear");
+      
+      //Add three paths to the map    
+        svg.append('path')
+            .attr('id','path')
+            .attr('class',"pa")
+            .attr('d',d3Line(dataLine))
+            .style("stroke-width", 2)
+             .style("stroke", '#000000')
+             .style("fill", "none")
+              .style('stroke-opacity', 0.75);
+
+        svg.append('path')
+            .attr('id','path2')
+             .attr('class',"pa")
+            .attr('d',d3Line(dataLine2))
+            .style("stroke-width", 2)
+             .style("stroke", 'blue')
+             .style("fill", "none")
+              .style('stroke-opacity', 0.75);
+
+       svg.append('path')
+            .attr('id','path3')
+            .attr('class',"pa")
+            .attr('d',d3Line(dataLine3))
+            .style("stroke-width", 2)
+             .style("stroke", 'red')
+             .style("fill", "none")
+              .style('stroke-opacity', 0.75);
+
+
         svg.selectAll('.node')//秦皇岛
               .data(data)
               .enter()
@@ -122,9 +179,15 @@
             .text(function(d){
                  return d;
               });
-
+        
+             mymap.on("zoomstart",function(){
+             	svg.selectAll('.pa')
+             	.style('display','none');
+             });
 
             mymap.on("zoomend",function(){
+            	    svg.selectAll('.pa')
+             	.style('display','inherit');
 
                  svg.selectAll('.MyText')
                   .attr("transform",function(d,i){
@@ -146,13 +209,41 @@
                 .attr("transform", function(d,i){
                          var latlon=new L.LatLng(d[0], d[1]);
                          return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
-                 });      
+                 });     
+                svg.select('#path')
+                 .attr('d',d3Line(dataLine))
+                .style("stroke-width", 2)
+                .style("stroke", '#000000')
+               .style("fill", "none")
+               .style('stroke-opacity', 0.75);
+
+                svg.select('#path2')
+              .attr('d',d3Line(dataLine2))
+              .style("stroke-width", 2)
+               .style("stroke", 'blue')
+               .style("fill", "none")
+              .style('stroke-opacity', 0.75);
+
+               svg.select('#path3')
+              .attr('d',d3Line(dataLine3))
+              .style("stroke-width", 2)
+               .style("stroke", 'red')
+               .style("fill", "none")
+              .style('stroke-opacity', 0.75);
+
+
              });
              $('#pos1').click(function(){
              	$(window).attr('location','china-tour/qinH.html');
              });
               $('#pos2').click(function(){
              	$(window).attr('location','china-tour/xingTai.html');
+             });
+              $('#pos3').click(function(){
+             	$(window).attr('location','china-tour/daLian.html');
+             });
+              $('#pos4').click(function(){
+             	$(window).attr('location','china-tour/beiJing.html');
              });
                $('#pos5').click(function(){
              	$(window).attr('location','china-tour/liaoYang.html');

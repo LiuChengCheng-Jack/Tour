@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tour daLian</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../js/leaflet.js"></script>
+             <script type="text/javascript" src="../js/myfocus-2.0.1.min.js"></script>
+             <script type="text/javascript" src="../js/jquery.js"></script>
+             <script type="text/javascript" src="../js/d3.v3.js"></script>
+             <link rel="stylesheet" type="text/css" href="../css/leaflet.css">
+	<style type="text/css">
+	     #map{
+	     	height:600px;
+	     }
+	     .node{
+	     	color: blue;
+	     }
+             .MyText{
+               font-size: 8px;
+                 fill:#0000FF;
+                 text-
+           }
+
+
+	</style>
+</head>
+<body>
+  <div id="map"></div>
+<script type="text/javascript">
+    var mymap = L.map('map').setView([38.9227,121.616792], 10);
+ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',  {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18
+}).addTo(mymap);
+       // Initialize the SVG layer
+        mymap._initPathRoot();
+
+         // We pick up the SVG from the map object..........
+        var m_svg = d3.select("#map").select("svg");
+        var svg = m_svg.append("g");
+ 
+        var posDaLian=[38.9227,121.616792];//记录经纬度
+       var posXing=[38.8811,121.5828];
+       var posSheng=[38.8786,121.5666];
+       var posFa=[39.0875,122.0102];
+       var posJin=[39.0835,121.9989];
+       var posGuo=[39.0724,122.0515];
+       var posLv=[38.8211,121.2583];
+       var posDa=[39.1078,121.7924];
+       var posRuan=[39.0926,121.8285];
+        var pos=[posDaLian,posXing,posSheng,posFa,posJin,posGuo,posLv,posDa,posRuan];
+        var data1=[1,2,3];
+        var data2=['','星海广场','圣亚海洋世界','发现王国','金石滩','国家地质公园','旅顺','大黑山','大工软院'];
+        svg.selectAll('.node')//秦皇岛
+              .data(pos)
+              .enter()
+              .append('circle') 
+              .attr("id",function(d,i){
+                i++;
+                return 'pos'+i;
+              })
+              .attr("class","node")
+              .attr('fill','#ff0000')
+              .attr('r',3)
+              .attr("transform", function(d,i){
+                         var latlon=new L.LatLng(d[0], d[1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+              });
+              
+
+
+
+    var texts = svg.selectAll(".MyText")//添加文字
+             .data(data2)
+             .enter()
+             .append("text")
+             .attr("class","MyText")
+             .attr("id",function(d,i){
+              i++;
+              return 'text'+i;
+             })
+             .attr("color","blue")
+             .attr("transform",function(d,i){
+               var latlon=new L.LatLng(pos[i][0], pos[i][1]);
+                        // console.log(latlon);
+                         return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+             })
+            .attr("dx",function(){
+                 return 3;//相对x 轴的偏移
+              })
+           .attr("dy",function(d){
+                 return 9;//相对y 轴的偏移
+             })
+            .text(function(d){
+                 return d;
+              });
+
+    //对界面进行优化
+          svg.select('#text2')
+            .attr("dx",function(){
+                 return 4;//相对x 轴的偏移
+              })   
+          .attr("dy",function(d){
+                 return -4;//相对y 轴的偏移
+             });
+
+           svg.select('#text4')
+            .attr("dx",function(){
+                 return 4;//相对x 轴的偏移
+              })
+          .attr("dy",function(d){
+                 return -4;//相对y 轴的偏移
+             });
+            
+            //当zoom大小发生改变时
+             mymap.on("zoomend",function(){
+                    
+                             svg.selectAll('.node')
+                            .attr("transform", function(d,i){
+                                 var latlon=new L.LatLng(pos[i][0], pos[i][1]);
+                                  return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+                           });      
+                   
+                    svg.selectAll('.MyText')
+                    .attr("transform",function(d,i){
+                                var latlon=new L.LatLng(pos[i][0], pos[i][1]);
+                                  // console.log(latlon);
+                                  return "translate(" + mymap.latLngToLayerPoint(latlon).x + "," + mymap.latLngToLayerPoint(latlon).y + ")";
+                  })
+                  .attr("dx",function(){
+                      return 4;//相对x 轴的偏移
+                    })
+                  .attr("dy",function(d){
+                     return 10;//相对y 轴的偏移
+                })
+                .text(function(d){
+                         return d;
+                 });
+
+                svg.select('#text2')
+                   .attr("dx",function(){
+                        return 4;//相对x 轴的偏移
+                    })
+               .attr("dy",function(d){
+                         return -4;//相对y 轴的偏移
+                 });
+
+                 svg.select('#text4')
+                   .attr("dx",function(){
+                        return 4;//相对x 轴的偏移
+                    })
+               .attr("dy",function(d){
+                         return -4;//相对y 轴的偏移
+                 });
+        });
+
+        listenerAll();
+  //['','星海广场','圣亚海洋世界','发现王国','金石滩','国家地质公园','旅顺','大黑山','大工软院'];
+       function listenerAll(){
+               $('.node').click(function(){
+                  alert("I am click");
+                });
+          $('#pos1').click(function(){
+               $(window).attr('location','DaLian/center.html');
+           });
+          $('#pos2').click(function(){
+                  $(window).attr('location','DaLian/xingHai.html');
+           });
+          $('#pos3').click(function(){
+                $(window).attr('location','DaLian/shengYa.html');
+           });
+          $('#pos4').click(function(){
+                  $(window).attr('location','DaLian/faXian.html');
+           });
+            $('#pos5').click(function(){
+                $(window).attr('location','DaLian/jinShiTan.html');
+           });
+          $('#pos6').click(function(){
+                  $(window).attr('location','DaLian/diZhi.html');
+           });
+          $('#pos7').click(function(){
+              $(window).attr('location','DaLian/lvShun.html'); 
+           });
+          $('#pos8').click(function(){
+                  $(window).attr('location','DaLian/daHeiShan.html');
+           });
+        $('#pos9').click(function(){
+                  $(window).attr('location','DaLian/ruanYuan.html');
+           });
+     }
+            
+               
+
+</script>
+</body>
+</html>
