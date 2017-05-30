@@ -49,9 +49,11 @@
        var posDa=[39.1078,121.7924];
        var posRuan=[39.0926,121.8285];
        var posBang=[38.8974,121.7104];
-        var pos=[posDaLian,posXing,posSheng,posFa,posJin,posGuo,posLv,posDa,posRuan,posBang];
+       var posJinLong=[38.9392,121.37082];
+       var posTong=[39.0320,121.7834];
+        var pos=[posDaLian,posXing,posSheng,posFa,posJin,posGuo,posLv,posDa,posRuan,posBang,posJinLong,posTong];
         var data1=[1,2,3];
-        var data2=['','星海广场','圣亚海洋世界','发现王国','金石滩','国家地质公园','旅顺','大黑山','大工软院','棒棰岛'];
+        var data2=['','星海广场','圣亚海洋世界','发现王国','金石滩','国家地质公园','旅顺','大黑山','大工软院','棒棰岛','金龙寺森林公园','铜牛岭'];
         svg.selectAll('.node')//大连
               .data(pos)
               .enter()
@@ -160,7 +162,7 @@
   //['','星海广场','圣亚海洋世界','发现王国','金石滩','国家地质公园','旅顺','大黑山','大工软院'];
        function listenerAll(){
                $('.node').click(function(){
-                  alert("I am click");
+                  //alert("I am click");
                 });
           $('#pos1').click(function(){
                $(window).attr('location','DaLian/center.html');
@@ -192,6 +194,12 @@
 
         $('#pos10').click(function(){
                   $(window).attr('location','DaLian/bangChuiDao.html');
+           });
+        $('#pos11').click(function(){
+                  $(window).attr('location','DaLian/jinLongSi.html');
+           });
+      $('#pos12').click(function(){
+                  $(window).attr('location','DaLian/tongNiu.html');
            });
      }
             
